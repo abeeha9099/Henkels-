@@ -1,0 +1,142 @@
+@import "tailwindcss";
+
+/*
+  Brand palette, taken from the original henkelsbaker.com theme.
+  Every color in the app comes from these variables; Tailwind's default
+  palette is switched off so no off-brand color can slip into a component.
+  Use them as utilities (bg-brand, text-ink, border-tan) or as
+  var(--color-brand) in plain CSS.
+*/
+@theme {
+  --color-*: initial;
+
+  --color-brand: #0c7e8b;        /* primary teal */
+  --color-brand-dark: #0a6a75;   /* hover state */
+  --color-brand-pale: #e8f3f4;   /* soft teal surface */
+  --color-tan: #bc8664;          /* secondary, button borders */
+  --color-tan-pale: #f8f1ec;     /* soft warm surface */
+  --color-taupe: #81685b;        /* secondary dark */
+  --color-ink: #242220;          /* headings */
+  --color-body: #6f6c67;         /* paragraph text */
+  --color-cocoa: #6c5a56;        /* muted copy */
+  --color-charcoal: #3c3c3c;
+  --color-mist: #f4f4f4;         /* light grey surface */
+  --color-star: #f6bb06;         /* review stars */
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --font-display: "Frank Ruhl Libre", Georgia, "Times New Roman", serif;
+  --font-sans: "Poppins", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-label: "Karla", ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-soft: 0 1px 2px rgb(36 34 32 / 0.04), 0 8px 24px -12px rgb(36 34 32 / 0.12);
+  --shadow-lift: 0 2px 4px rgb(36 34 32 / 0.04), 0 22px 40px -18px rgb(12 126 139 / 0.32);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-white font-sans text-[0.9375rem] leading-relaxed text-body antialiased sm:text-base;
+  }
+
+  h1, h2, h3, h4, h5 {
+    @apply font-display text-ink;
+    text-wrap: balance;
+  }
+
+  a, button {
+    @apply transition-colors;
+  }
+
+  :focus-visible {
+    @apply rounded-sm outline-2 outline-offset-2 outline-brand;
+  }
+
+  ::selection {
+    @apply bg-brand-pale text-ink;
+  }
+}
+
+/* Long-form content imported from WordPress (pages, posts, bios). */
+@layer components {
+  .prose-hb {
+    @apply text-base leading-[1.8] text-body sm:text-[1.0625rem];
+  }
+  .prose-hb > * + * {
+    @apply mt-5;
+  }
+  .prose-hb h2 {
+    @apply mt-16 mb-6 font-display text-3xl leading-tight tracking-[-0.01em] text-ink sm:text-[2.5rem];
+  }
+  .prose-hb h3 {
+    @apply mt-12 mb-4 font-display text-2xl leading-snug text-ink sm:text-[1.75rem];
+  }
+  .prose-hb h4,
+  .prose-hb h5,
+  .prose-hb h6 {
+    @apply mt-10 mb-3 font-display text-xl text-ink;
+  }
+  .prose-hb > :first-child {
+    @apply mt-0;
+  }
+  .prose-hb strong,
+  .prose-hb b {
+    @apply font-semibold text-ink;
+  }
+  .prose-hb a {
+    overflow-wrap: anywhere;
+    @apply font-medium text-brand underline decoration-brand/30 underline-offset-4 transition-colors hover:decoration-brand;
+  }
+  .prose-hb a[data-button] {
+    @apply inline-flex rounded-full bg-ink px-6 py-3 text-sm text-white no-underline hover:bg-charcoal;
+  }
+  .prose-hb ul,
+  .prose-hb ol {
+    @apply space-y-2.5 pl-6;
+  }
+  .prose-hb ul {
+    list-style: none;
+  }
+  .prose-hb ul > li {
+    @apply relative;
+  }
+  .prose-hb ul > li::before {
+    content: "";
+    @apply absolute top-[0.8em] -left-5 size-1.5 rounded-full bg-tan;
+  }
+  .prose-hb ol {
+    @apply list-decimal marker:font-label marker:font-bold marker:text-tan;
+  }
+  .prose-hb img {
+    @apply my-10 h-auto w-full rounded-[1.75rem] object-cover;
+  }
+  .prose-hb blockquote {
+    @apply border-l-2 border-tan pl-6 font-display text-xl text-ink;
+  }
+  .prose-hb table {
+    @apply block w-full overflow-x-auto border-collapse text-sm sm:table;
+  }
+  .prose-hb th,
+  .prose-hb td {
+    @apply border-b border-ink/10 px-3 py-3 text-left align-top;
+  }
+  .prose-hb th {
+    @apply font-label text-xs font-bold tracking-[0.12em] text-ink uppercase;
+  }
+  .prose-hb pre {
+    @apply overflow-x-auto rounded-2xl bg-mist p-4 text-sm whitespace-pre-wrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
